@@ -6,12 +6,15 @@ import * as serviceWorker from './serviceWorker';
 import Category from './controller/Category';
 import Expense from './controller/Expense';
 import User from './controller/User';
+import Home from './controller/Home';
+import 'bootstrap/dist/css/bootstrap.css';
 
 ReactDOM.render(
   <React.StrictMode>
-    <Category/>
-    <Expense/>
-    <User/>
+    <Home />
+    <Category />
+    <Expense />
+    <User />
     {/* <App /> */}
   </React.StrictMode>,
   document.getElementById('root')
