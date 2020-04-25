@@ -1,10 +1,9 @@
 import React, { Component } from "react";
-
-class Category extends Component {
+class User extends Component {
   state = { List: [], isLoading: true };
 
   async componentDidMount() {
-    const response = await fetch("category/categorys");
+    const response = await fetch("/user/users");
     const body = await response.json();
 
     this.setState({
@@ -20,7 +19,7 @@ class Category extends Component {
 
     return (
       <div>
-        <h1>Category</h1>
+        <h1>User</h1>
 
         {List.map((category) => (
           <div key={category.id}>{category.name}</div>
@@ -30,4 +29,4 @@ class Category extends Component {
   }
 }
 
-export default Category;
+export default User;

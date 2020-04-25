@@ -1,14 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
+// import App from './App';
 import * as serviceWorker from './serviceWorker';
 import Category from './controller/Category';
+import Expense from './controller/Expense';
+import User from './controller/User';
 
 ReactDOM.render(
   <React.StrictMode>
     <Category/>
-    <App />
+    <Expense/>
+    <User/>
+    {/* <App /> */}
   </React.StrictMode>,
   document.getElementById('root')
 );
