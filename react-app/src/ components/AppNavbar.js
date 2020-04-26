@@ -11,20 +11,18 @@ class AppNavbar extends Component {
         <Navbar color="dark" dark expand="md">
           <NavbarBrand href="/">Home</NavbarBrand>
 
-          <Nav className="mr-auto" navbar>
+          <Nav className="ml-auto" navbar>
             <NavItem>
-              <NavLink href="/components/">Category</NavLink>
+              <NavLink href="/category">Category</NavLink>
             </NavItem>
 
             <NavItem>
-              <NavLink href="/components/">Expense</NavLink>
+              <NavLink href="/expense">Expense</NavLink>
             </NavItem>
 
             <NavItem>
-              <NavLink href="/components/">User</NavLink>
+              <NavLink href="/user">User</NavLink>
             </NavItem>
-
-            <NavItem></NavItem>
           </Nav>
         </Navbar>
       </div>

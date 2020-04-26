@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import AppNavbar from "../ components/AppNavbar";
 class Expense extends Component {
   state = { List: [], isLoading: true };
 
@@ -19,8 +20,8 @@ class Expense extends Component {
 
     return (
       <div>
+        <AppNavbar />
         <h1>Expense</h1>
-
         {List.map((category) => (
           <div key={category.id}>{category.description}</div>
         ))}

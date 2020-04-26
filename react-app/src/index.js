@@ -3,18 +3,22 @@ import ReactDOM from 'react-dom';
 import './index.css';
 // import App from './App';
 import * as serviceWorker from './serviceWorker';
-import Category from './controller/Category';
-import Expense from './controller/Expense';
-import User from './controller/User';
-import Home from './controller/Home';
+// import Category from './controller/Category';
+// import Expense from './controller/Expense';
+// import User from './controller/User';
+// import Home from './controller/Home';
 import 'bootstrap/dist/css/bootstrap.css';
+// import AppNavbar from './ components/AppNavbar';
+import AppSwitch from './ components/AppSwitch';
 
 ReactDOM.render(
   <React.StrictMode>
-    <Home />
-    <Category />
-    <Expense />
-    <User />
+    <AppSwitch/>
+    {/* <AppNavbar/> */}
+    {/* <Home /> */}
+    {/* <Category /> */}
+    {/* <Expense /> */}
+    {/* <User /> */}
     {/* <App /> */}
   </React.StrictMode>,
   document.getElementById('root')
