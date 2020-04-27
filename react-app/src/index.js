@@ -9,11 +9,11 @@ import * as serviceWorker from './serviceWorker';
 // import Home from './controller/Home';
 import 'bootstrap/dist/css/bootstrap.css';
 // import AppNavbar from './ components/AppNavbar';
-import AppSwitch from './ components/AppSwitch';
+import AppRouter from './ components/AppRouter';
 
 ReactDOM.render(
   <React.StrictMode>
-    <AppSwitch/>
+    <AppRouter/>
     {/* <AppNavbar/> */}
     {/* <Home /> */}
     {/* <Category /> */}

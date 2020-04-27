@@ -7,8 +7,7 @@ import Expense from "../controller/Expense";
 import User from "../controller/User";
 import Home from "../controller/Home";
 
-class AppSwitch extends Component {
-  state = {};
+class AppRouter extends Component {
 
   render() {
     return (
@@ -29,4 +28,4 @@ class AppSwitch extends Component {
   }
 }
 
-export default AppSwitch;
+export default AppRouter;

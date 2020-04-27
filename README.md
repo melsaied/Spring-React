@@ -17,3 +17,8 @@ npm install reactstrap
 npm install router react-router-dom react-cookie react-bootstrap bootstrap reactstrap
 npm install react-router-dom react-cookie bootstrap reactstrap
 -->
+
+<!-- 
+npm install moment --save 
+npm install --save moment react-moment
+ -->
