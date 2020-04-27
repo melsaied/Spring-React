@@ -6,22 +6,21 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
-//@Data
-//@NoArgsConstructor
-//@AllArgsConstructor
-//@SuppressWarnings("unused")
 public class Expense {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String description;
+	private String location;
 	private Instant expenseDate;
-//	@ManyToOne
-//	private User user;
-//	@ManyToOne
-//	private Category category;
+	@ManyToOne
+//	@JsonIgnore
+	private User user;
+	@ManyToOne
+	private Category category;
 
 	public Long getId() {
 		return id;
@@ -39,6 +38,14 @@ public class Expense {
 		this.description = description;
 	}
 
+	public String getLocation() {
+		return location;
+	}
+
+	public void setLocation(String location) {
+		this.location = location;
+	}
+
 	public Instant getExpenseDate() {
 		return expenseDate;
 	}
@@ -47,19 +54,19 @@ public class Expense {
 		this.expenseDate = expenseDate;
 	}
 
-//	public User getUser() {
-//		return user;
-//	}
-//
-//	public void setUser(User user) {
-//		this.user = user;
-//	}
-//
-//	public Category getCategory() {
-//		return category;
-//	}
-//
-//	public void setCategory(Category category) {
-//		this.category = category;
-//	}
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public Category getCategory() {
+		return category;
+	}
+
+	public void setCategory(Category category) {
+		this.category = category;
+	}
 }

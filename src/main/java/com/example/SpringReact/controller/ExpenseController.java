@@ -43,7 +43,7 @@ public class ExpenseController {
 	}
 
 //	http://localhost:8080/expense/expenses
-//	{"id": 11,"description": "Los Angeles", "expenseDate": "2020-03-27T00:25:32Z"}
+//	{"description": "Added Business trip","location": "Added New York","expenseDate": "2020-04-27T07:22:49Z","user": {"id": 11},"category": {"id": 11}}
 	@PostMapping("/expenses")
 	ResponseEntity<@Valid Expense> addExpense(@Valid @RequestBody Expense expense) throws URISyntaxException {
 		expense = repository.save(expense);
@@ -52,7 +52,7 @@ public class ExpenseController {
 	}
 
 //	http://localhost:8080/expense/expenses/11
-//	{"id": 11, "description": "Chicago", "expenseDate": "2020-03-27T00:25:32Z"}
+//	{"id": 11,"description": "Added Business trip","location": "Added New York","expenseDate": "2020-04-27T07:22:49Z","user": {"id": 11},"category": {"id": 11}}
 	@PutMapping("/expenses/{id}")
 	ResponseEntity<@Valid Expense> editExpense(@Valid @RequestBody Expense expense) {
 		expense = repository.save(expense);
