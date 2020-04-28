@@ -26,11 +26,25 @@ class Expense extends Component {
   }
 
   async componentDidMount() {
-    const response = await fetch("/expense/expenses");
-    const body = await response.json();
+    const body = await fetch("/expense/expenses").then((response) =>
+      response.json()
+    );
     const responseCategory = await fetch("category/categorys");
     const bodyCategory = await responseCategory.json();
     this.setState({ list: body, listCategory: bodyCategory, isLoading: false });
+  }
+
+  async remove(id) {
+    await fetch(`/expense/expenses/${id}`, {
+      method: "DELETE",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    }).then(() => {
+      let updatedList = [...this.state.list].filter((i) => i.id !== id);
+      this.setState({ list: updatedList });
+    });
   }
 
   handleChange;
@@ -46,19 +60,24 @@ class Expense extends Component {
     ));
 
     let rows = list.map((item) => (
-      <tbody>
-        <tr>
-          <th>{item.id}</th>
-          <td>{item.description}</td>
-          <td>{item.expenseDate}</td>
-          <td>{item.location}</td>
-          <td>{item.category.name}</td>
-          <td>{item.user.name}</td>
-          <td>
-            <button class="btn btn-danger">Delete</button>
-          </td>
-        </tr>
-      </tbody>
+      <tr key={item.id}>
+        <th>{item.id}</th>
+        <td>{item.description}</td>
+        <td>{item.expenseDate}</td>
+        <td>{item.location}</td>
+        <td>{item.category.name}</td>
+        <td>{item.user.name}</td>
+        <td>
+          <Button
+            color="danger"
+            onClick={() => {
+              this.remove(item.id);
+            }}
+          >
+            DELETE
+          </Button>
+        </td>
+      </tr>
     ));
 
     return (
@@ -108,8 +127,7 @@ class Expense extends Component {
             <FormGroup>
               <Button color="primary" type="submit">
                 Save
-              </Button>
-
+              </Button>{" "}
               <Button color="secondary" tag={Link} to="/category">
                 Cancel
               </Button>
@@ -130,12 +148,9 @@ class Expense extends Component {
                 <th> Action </th>
               </tr>
             </thead>
-
-            {rows}
+            <tbody>{rows}</tbody>
           </Table>
         </Container>
-
-        <h1>Expense</h1>
 
         <div>{list.id}</div>
       </div>
