@@ -1,28 +1,31 @@
 import React, { Component } from "react";
-import AppNavbar from "../ components/AppNavbar";
-import {
-  Container,
-  Form,
-  Label,
-  Input,
-  Button,
-  FormGroup,
-  Table,
-} from "reactstrap";
-import { Link } from "react-router-dom";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import Moment from "react-moment";
+import { Link } from "react-router-dom";
+import { Button, Container, Form, FormGroup, Input, Label, Table } from "reactstrap";
+import AppNavbar from "../ components/AppNavbar";
 
 class Expense extends Component {
+  empty = {
+    description: "Added Business trip",
+    location: "Added New York",
+    expenseDate: "",
+    user: { id: 12 },
+    category: { id: 12 },
+  };
+
   constructor(props) {
     super(props);
-
     this.state = {
       list: [],
       listCategory: [],
-      sLoading: true,
-      startDate: new Date(),
+      isLoading: true,
+      page: this.empty,
     };
+    this.handelSubmit = this.handelSubmit.bind(this);
+    this.handelChange = this.handelChange.bind(this);
+    this.handelDateChange = this.handelDateChange.bind(this);
   }
 
   async componentDidMount() {
@@ -34,8 +37,39 @@ class Expense extends Component {
     this.setState({ list: body, listCategory: bodyCategory, isLoading: false });
   }
 
+  handelDateChange(date) {
+    let page = { ...this.state.page };
+    page.expenseDate = date;
+    this.setState({ page });
+  }
+
+  handelChange(event) {
+    const target = event.target;
+    const value = target.value;
+    const name = target.name;
+    let page = { ...this.state.page };
+    page[name] = value;
+    this.setState({ page });
+  }
+
+  async handelSubmit(event) {
+    const page = this.state.page;
+    let body = "";
+    await fetch(`expense/expenses`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(page),
+    });
+    event.preventDefault();
+    this.props.history.push("/expense");
+    console.log(body);
+  }
+
   async remove(id) {
-    await fetch(`/expense/expenses/${id}`, {
+    await fetch(`expense/expenses/${id}`, {
       method: "DELETE",
       headers: {
         Accept: "application/json",
@@ -47,8 +81,6 @@ class Expense extends Component {
     });
   }
 
-  handleChange;
-
   render() {
     const { list, listCategory, isLoading } = this.state;
     const title = <h2>Add Expense</h2>;
@@ -56,14 +88,18 @@ class Expense extends Component {
     if (isLoading) return <div key={1}>Loading...</div>;
 
     let optionCategoryList = listCategory.map((item) => (
-      <option key={item.id}>{item.name}</option>
+      <option key={item.id} value={item.id}>
+        {item.name}
+      </option>
     ));
 
     let rows = list.map((item) => (
       <tr key={item.id}>
         <th>{item.id}</th>
         <td>{item.description}</td>
-        <td>{item.expenseDate}</td>
+        <td>
+          <Moment date={item.expenseDate} format="MM/DD/YYYY" />
+        </td>
         <td>{item.location}</td>
         <td>{item.category.name}</td>
         <td>{item.user.name}</td>
@@ -86,14 +122,13 @@ class Expense extends Component {
 
         <Container>
           {title}
-          <Form>
+          <Form onSubmit={this.handelSubmit}>
             <FormGroup>
               <Label for="title">Title</Label>
 
               <Input
                 type="text"
-                name="title"
-                id="title"
+                name="description"
                 onChange={this.handelChange}
               ></Input>
             </FormGroup>
@@ -101,15 +136,20 @@ class Expense extends Component {
             <FormGroup>
               <Label for="title">Category</Label>
 
-              <select>{optionCategoryList}</select>
+              <select onChange={this.handelChange} name="category">
+                <option key="0" value="0">
+                  select
+                </option>
+                {optionCategoryList}
+              </select>
             </FormGroup>
 
             <FormGroup>
               <Label for="title">Expense date</Label>
 
               <DatePicker
-                selected={this.state.startDate}
-                onChange={this.handleChange}
+                selected={this.state.page.expenseDate}
+                onChange={this.handelDateChange}
               ></DatePicker>
             </FormGroup>
 
@@ -118,8 +158,7 @@ class Expense extends Component {
 
               <Input
                 type="text"
-                name="title"
-                id="title"
+                name="location"
                 onChange={this.handelChange}
               ></Input>
             </FormGroup>
